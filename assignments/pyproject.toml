@@ -3,9 +3,7 @@ name = "life_expectancy"
 version = "0.1.0"
 description = "Let's see what life expects"
 authors = [{name = "Ana Amorete"}]
-
-[dependencies]
-pandas = "^2.1.1"
+dependencies = ["pandas>=2.1.1"]
 
 [project.optional-dependencies]
 dev = ["pytest", "pylint", "pytest-cov", "toml"]
