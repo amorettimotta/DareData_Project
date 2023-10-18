@@ -15,6 +15,12 @@ dev = ["pytest", "pylint", "pytest-cov", "toml"]
 requires = ["setuptools>=61.0"]
 build-backend = "setuptools.build_meta"
 
+[tool.pylint."messages control"]
+disable = [
+   "missing-module-docstring",
+   # Add any other checks you want to disable here
+]
+
 # This is also important. It tells setuptools which packages to include.
 # If you don't add this, you won't be able to import your package, 
 # (`import my_cool_package`) even if you install it.
