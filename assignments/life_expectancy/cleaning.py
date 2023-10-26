@@ -6,11 +6,6 @@ import argparse
 
 def clean_data(country_arg = 'PT'):
     # Carregar os dados do arquivo eu_life_expectancy_raw.tsv
-    #data_path = Path("data") / "eu_life_expectancy_raw.tsv"
-    #df = pd.read_csv(data_path, sep='\t')
-    #df = pd.read_csv('life_expectancy\\data\\eu_life_expectancy_raw.tsv', sep='\t')
-    #df = pd.read_csv('data\\eu_life_expectancy_raw.tsv', sep='\t')
-
     script_dir = Path(__file__).parent
     data_path = script_dir / "data" / "eu_life_expectancy_raw.tsv"
     df = pd.read_csv(data_path, sep='\t')
@@ -18,13 +13,13 @@ def clean_data(country_arg = 'PT'):
     # Alterar o nome da coluna geo\time para geo_time
     df.columns.values[0] = 'unit,sex,age,geo_time'
 
-    # Step 1: Split 'unit,sex,age,geo_time' into 'unit,' 'sex,'
+    # Split 'unit,sex,age,geo_time' into 'unit,' 'sex,'
     # 'age,' and 'geo_time' and drop 'geo_time'
     df[['unit', 'sex', 'age', 'geo_time']] = df['unit,sex,age,geo_time'].str.split(',', expand=True)
 
     df.drop('unit,sex,age,geo_time', axis=1, inplace=True)
 
-    # Step 2: Melt the DataFrame to create separate rows for each year
+    # Melt the DataFrame to create separate rows for each year
     df = pd.melt(df, id_vars=['unit', 'sex', 'age', 'geo_time'],
                  var_name='year', value_name='value')
 
@@ -49,9 +44,7 @@ def clean_data(country_arg = 'PT'):
 
     # Salvar o DataFrame resultante em um novo arquivo
     df.to_csv(script_dir / "data" / "pt_life_expectancy.csv", index=False)
-    #df.to_csv(Path("data") / "pt_life_expectancy.csv", index=False)
-    #df.to_csv('life_expectancy\\data\\pt_life_expectancy.csv', index=False)
-    #df.to_csv('data\\pt_life_expectancy.csv', index=False)
+    
 
 # Funcao para limpar as letras da coluna value
 def clean (value):
