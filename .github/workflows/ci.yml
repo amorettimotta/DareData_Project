@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '2.x'
 
     - name: Install dependencies
       run: |
@@ -27,7 +27,9 @@ jobs:
         python -m pip install pip install -e '.[dev]'
 
     - name: Run pytest
-      run: pytest
+      run: |
+        pytest
 
     - name: Run pylint
-      run: pylint life_expectancy
+      run: |
+        pylint life_expectancy
