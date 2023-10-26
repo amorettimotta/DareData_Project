@@ -11,8 +11,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-     strategy:
-      fail-fast: false
+    strategy:
+      matrix:
+        python-version:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
 
     steps:
     - name: Check out code
@@ -21,12 +26,12 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: ${{ matrix.python-version }}
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pip install -e '.[dev]'
+        python -m pip install -e '.[dev]'
 
     - name: Run pytest
       run: |
