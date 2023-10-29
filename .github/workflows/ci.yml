@@ -28,6 +28,7 @@ jobs:
     - name: Change directory
       run: |
         cd assignments/
+        
 
     - name: Install dependencies
       run: |
