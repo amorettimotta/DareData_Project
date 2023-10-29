@@ -1,3 +1,5 @@
+[![CI](https://github.com/amorettimotta/DareData_Project/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/amorettimotta/DareData_Project/actions/workflows/ci.yml)
+
 # Foundations Learning Path Assignments
 
 ## Introduction
