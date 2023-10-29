@@ -1,8 +1,8 @@
 import re
 from pathlib import Path
 import sys
-import pandas as pd
 import argparse
+import pandas as pd
 
 def clean_data(country_arg = 'PT'):
     # Carregar os dados do arquivo eu_life_expectancy_raw.tsv
@@ -44,7 +44,7 @@ def clean_data(country_arg = 'PT'):
 
     # Salvar o DataFrame resultante em um novo arquivo
     df.to_csv(script_dir / "data" / "pt_life_expectancy.csv", index=False)
-    
+
 
 # Funcao para limpar as letras da coluna value
 def clean (value):
