@@ -37,7 +37,6 @@ def clean_data(country_arg = 'PT'):
     df = df.dropna(subset=['value'])
 
     df['region'] = df['region'].str.extract(r'([A-Z]{2})', expand=False)
-    #df['age'] = df['age'].apply(clean)
 
     df['value'] = df['value'].astype(float)
     df = df[df['region'] == country_arg]
