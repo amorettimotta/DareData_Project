@@ -25,7 +25,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Change directory
+    - name: Change directory 1
+      run: |
+        cd .github/
+
+    - name: Change directory 2
       run: |
         cd assignments/
       working-directory: ${{ github.workspace }}/assignments
