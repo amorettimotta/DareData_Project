@@ -31,7 +31,7 @@ jobs:
 
     - name: Print content of the runner working dir
       run: |
-        ls
+        ls -la
 
     - name: Change directory
       run: |
