@@ -25,17 +25,9 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Print present working directory
-      run: |
-        pwd
-
-    - name: Print content of the runner working dir
-      run: |
-        ls -la
-
     - name: Change directory
       run: |
-        cd assignments
+        cd assignments/
       working-directory: ${{ github.workspace }}/assignments
 
     - name: Install dependencies
