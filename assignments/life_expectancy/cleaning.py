@@ -53,7 +53,7 @@ def clean (value):
 
 if __name__ == "__main__": # pragma: no cover
     parser = argparse.ArgumentParser(prog='cleaning.py', description="Script to clean a dataset")
-    parser.add_argument('country', type=str, nargs='*', help= 'Country to filter the dataframe')
+    parser.add_argument('--country', type=str, nargs='*', help= 'Country to filter the dataframe')
     args = parser.parse_args()
     print(args)
     if len(sys.argv) > 1:
