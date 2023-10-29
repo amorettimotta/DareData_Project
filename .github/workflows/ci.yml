@@ -25,6 +25,10 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
+    - name: Print present working directory
+      run: |
+        pwd
+        
     - name: Change directory
       run: |
         cd assignments
