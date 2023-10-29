@@ -1,41 +1,44 @@
-# Foundations Learning Path
+# Foundations Learning Path Assignments
 
-Welcome to the Foundations Learning Path 🎉
+## Introduction
 
-This course is designed to teach how to improve your coding ability with sound software engineering principles. In this introduction, you'll learn:
+We are going to be using this project throughout the course.
 
-- The directions driving your learning experience in this course.
-- The structure of the course.
-- The expectations on students and mentors.
-- A suggested learning calendar.
+This assignment uses life expectancy in Europe grouped by Country (or other, like group of countries), Age, Sex, and Time. But the data format makes it hard to use. We will be building a pipeline do clean the data, while applying the concepts you've learned in the previous modules.
 
-## Learning Principles
+## Installing
 
-When we assembled this course, we had in mind that our students would be adult individuals with time constraints. They will be looking to implement the knowledge in their work environment and maybe discuss it with their peers.
+Before installing, make sure your `pip` is up to date.
 
-To fulfill these expectations, we adopted the following principles:
+```bash
+pip --version
+```
 
-- Prefer self-directed learning over teacher-directed learning;
-- Prefer content that's easily accessible (no paywalls or subscriptions);
-- Prefer content that can be immediately applied;
-- Always use code examples;
-- Learning by teaching is encouraged.
+Prior to the introduction of `pyproject.toml`-based builds (in PEP 517 and PEP 518), pip had only supported installing packages using setup.py files that were built using `setuptools`. But in version 21.3, pip added support for performing editable installs of packages that use `pyproject.toml`. This means that you can use pip to install packages described in the `pyproject.toml`.
 
-## Learning Structure
+To update pip, run:
 
-Students are to be divided into groups of 3. These groups should try to progress through the learning process together so that their questions and discussion are on the same wavelength. Each group will be assigned a mentor and will perform code reviews together.
+```bash
+pip install --upgrade pip
+```
 
-**Mentors**: A mentor is a more experienced collaborator and/or someone who has already gone through the course. They are in charge of helping their group, answering questions and preventing them from being stuck, as well as keeping track of their progress.
+Now you're ready to go!
 
-**Code reviews**: Some of the proposed assignments will involve reviewing each other's code. For each code review, there will be a “reviewer”. **It's the review's responsibility to ensure that the code being reviewed fulfills the requirements of the assignment and that it doesn't degrade the quality of the code base** (though we would always prefer the quality to be improved). During these assignments, each person will review the code of one of their group peers. The only caveat is that one can't review the code of the person who's reviewing their code.
+1. Clone this repo.
+2. Copy `assignments` folder into a separate project `mv -r nos-lp-foundations/assignments assignments`.
+3. Move into the assignments folder (`cd assignments`) and start a new repo (`git init`).
+4. Create a virtual environment with `python -m venv .venv`.
+   > **Note for Anaconda users**: We would prefer if you exit the automatic conda environments and tried using the steps above, as they are the canonical Python way of creating virtual environments. However, we realize working that way might be tricky for Anaconda users since Anaconda usually changes the configurations of your machine. If you are having too many problems getting started, then feel free to use the "conda way" of handling environments.  I.e.: create a virtual environment with `conda create --name foundations`.
+5. Activate the virtual environment with `source .venv/bin/activate` or `.venv\Scripts\activate` on Windows.
+   > **Note for Anaconda users**: Same as above, if you are having too many problems getting started, then feel free to activate the environment with `conda activate foundations` instead.
 
-The review may ask the group mentor for help, but **only the reviewer** can approve whether or not the assignment was completed.
+Don't install the project yet. We will do that in [setup assignment](./assignment_0/README.md).
 
-## Expectations
+## Using this project
 
-### Expectations for students
+Open the `README.md` file inside each assignment and follow the instructions.
 
-Although we understand that time may be constrained, each student has responsibilities with its groups, namely.
+> Note: Remember that all commands inside the Readme files assume you are in the root of the project.
 
 - Try to keep the pace with the group's progress, neither falling too behind or advancing too much by themselves.
 - Don't let their peers' code reviews go stale.
