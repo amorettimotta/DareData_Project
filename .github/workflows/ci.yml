@@ -32,7 +32,7 @@ jobs:
 
     - name: Run pytest
       run: |
-        pytest
+        pytest life_expectancy --cov
 
     - name: Run pylint
       run: |
