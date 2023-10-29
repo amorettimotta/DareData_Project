@@ -27,8 +27,8 @@ jobs:
 
     - name: Change directory
       run: |
-        cd assignments/
-      working-directory: assignments/
+        cd assignments
+      working-directory: ${{ github.workspace }}/assignments
 
     - name: Install dependencies
       run: |
