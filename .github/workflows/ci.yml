@@ -28,7 +28,11 @@ jobs:
     - name: Print present working directory
       run: |
         pwd
-        
+
+    - name: Print content of the runner working dir
+      run: |
+        ls
+
     - name: Change directory
       run: |
         cd assignments
