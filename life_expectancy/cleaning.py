@@ -32,7 +32,6 @@ def clean_data(df, country_arg = 'PT'):
 
     # Aplicar a funcao clean à coluna value para limpar todas as letras
     df['value'] = df['value'].apply(clean)
-    #df['value'] = df['value'].str.extract(r'([^0-9.])', expand=False)
 
     # Substituir : por Nan e em seguida eliminar NaN
     df['value'] = df['value'].replace('', pd.NA)
