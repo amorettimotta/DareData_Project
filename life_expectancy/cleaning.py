@@ -4,12 +4,13 @@ import sys
 import argparse
 import pandas as pd
 
-def clean_data(country_arg = 'PT'):
-    # Carregar os dados do arquivo eu_life_expectancy_raw.tsv
+def load_dataset():
     script_dir = Path(__file__).parent
     data_path = script_dir / "data" / "eu_life_expectancy_raw.tsv"
     df = pd.read_csv(data_path, sep='\t')
+    return df
 
+def clean_data(df, country_arg = 'PT'):
     # Alterar o nome da coluna geo\time para geo_time
     df.columns.values[0] = 'unit,sex,age,geo_time'
 
@@ -31,6 +32,7 @@ def clean_data(country_arg = 'PT'):
 
     # Aplicar a funcao clean à coluna value para limpar todas as letras
     df['value'] = df['value'].apply(clean)
+    #df['value'] = df['value'].str.extract(r'([^0-9.])', expand=False)
 
     # Substituir : por Nan e em seguida eliminar NaN
     df['value'] = df['value'].replace('', pd.NA)
@@ -38,12 +40,18 @@ def clean_data(country_arg = 'PT'):
 
     df['region'] = df['region'].str.extract(r'([A-Z]{2})', expand=False)
 
+    #df['age'] = df['age'].apply(clean)
+
     df['value'] = df['value'].astype(float)
     df = df[df['region'] == country_arg]
 
-    # Salvar o DataFrame resultante em um novo arquivo
-    df.to_csv(script_dir / "data" / "pt_life_expectancy.csv", index=False)
+    return df
 
+# Salvar o DataFrame resultante em um novo arquivo
+def save_data(dataframe):
+    script_dir = Path(__file__).parent
+    csv_path = script_dir / "data" / "pt_life_expectancy.csv"
+    dataframe.to_csv(csv_path, index=False)
 
 # Funcao para limpar as letras da coluna value
 def clean (value):
@@ -54,8 +62,13 @@ if __name__ == "__main__": # pragma: no cover
     parser = argparse.ArgumentParser(prog='cleaning.py', description="Script to clean a dataset")
     parser.add_argument('--country', type=str, nargs='*', help= 'Country to filter the dataframe')
     args = parser.parse_args()
-    print(args)
+
+    # Carregar os dados
+    original_df = load_dataset()
+
     if len(sys.argv) > 1:
-        clean_data(args.country[0])
+        df_cleaned = clean_data(original_df, args.country[0])
     else:
-        clean_data()
+        df_cleaned = clean_data(original_df)
+
+    save_data(df_cleaned)
