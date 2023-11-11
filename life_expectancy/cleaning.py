@@ -11,49 +11,37 @@ def load_dataset():
     return df
 
 def clean_data(df, country_arg = 'PT'):
-    # Alterar o nome da coluna geo\time para geo_time
+
     df.columns.values[0] = 'unit,sex,age,geo_time'
 
-    # Split 'unit,sex,age,geo_time' into 'unit,' 'sex,'
-    # 'age,' and 'geo_time' and drop 'geo_time'
     df[['unit', 'sex', 'age', 'geo_time']] = df['unit,sex,age,geo_time'].str.split(',', expand=True)
 
     df.drop('unit,sex,age,geo_time', axis=1, inplace=True)
 
-    # Melt the DataFrame to create separate rows for each year
     df = pd.melt(df, id_vars=['unit', 'sex', 'age', 'geo_time'],
                  var_name='year', value_name='value')
 
-    # mudar o nome da quarta coluna "geo_time"
     df.columns.values[3] = 'region'
 
-    # Alterar o tipo de dados de 'year' para int
     df['year'] = df['year'].astype(int)
 
-    # Aplicar a funcao clean à coluna value para limpar todas as letras
     df['value'] = df['value'].apply(clean)
-    #df['value'] = df['value'].str.extract(r'([^0-9.])', expand=False)
 
-    # Substituir : por Nan e em seguida eliminar NaN
     df['value'] = df['value'].replace('', pd.NA)
     df = df.dropna(subset=['value'])
 
     df['region'] = df['region'].str.extract(r'([A-Z]{2})', expand=False)
-
-    #df['age'] = df['age'].apply(clean)
 
     df['value'] = df['value'].astype(float)
     df = df[df['region'] == country_arg]
 
     return df
 
-# Salvar o DataFrame resultante em um novo arquivo
 def save_data(dataframe):
     script_dir = Path(__file__).parent
     csv_path = script_dir / "data" / "pt_life_expectancy.csv"
     dataframe.to_csv(csv_path, index=False)
 
-# Funcao para limpar as letras da coluna value
 def clean (value):
     cleaned_value = re.sub(r'[^0-9.]', '', value)
     return cleaned_value
@@ -63,7 +51,6 @@ if __name__ == "__main__": # pragma: no cover
     parser.add_argument('--country', type=str, nargs='*', help= 'Country to filter the dataframe')
     args = parser.parse_args()
 
-    # Carregar os dados
     original_df = load_dataset()
 
     if len(sys.argv) > 1:
