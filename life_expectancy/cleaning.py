@@ -24,6 +24,8 @@ def clean_data(df, country_arg = 'PT'):
     df.columns.values[3] = 'region'
 
     df['year'] = df['year'].astype(int)
+    
+    df['value'] = df['value'].astype(str)
 
     df['value'] = df['value'].apply(clean)
 
@@ -33,9 +35,9 @@ def clean_data(df, country_arg = 'PT'):
     df['region'] = df['region'].str.extract(r'([A-Z]{2})', expand=False)
 
     df['value'] = df['value'].astype(float)
-    df = df[df['region'] == country_arg]
+    df_clean = df[df['region'] == country_arg]
 
-    return df
+    return pd.DataFrame(df_clean)
 
 def save_data(dataframe):
     script_dir = Path(__file__).parent
