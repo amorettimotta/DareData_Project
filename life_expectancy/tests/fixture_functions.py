@@ -1,7 +1,8 @@
 """Pytest fixtures file"""
 import pandas as pd
 from pathlib import Path
-from life_expectancy.cleaning import load_dataset, clean
+from life_expectancy.loading_saving import load_dataset
+from life_expectancy.cleaning import clean
 #from . import FIXTURES_DIR
 
 def load_and_sample_data() -> pd.DataFrame:
