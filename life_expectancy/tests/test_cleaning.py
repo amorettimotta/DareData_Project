@@ -1,6 +1,6 @@
 """Tests for the cleaning module"""
 import pandas as pd
-from unittest.mock import patch
+import pytest
 from life_expectancy.cleaning import clean_data
 
 def test_clean_data(input_fixture, output_fixture):
@@ -19,3 +19,6 @@ def test_clean_data(input_fixture, output_fixture):
     pd.testing.assert_frame_equal(
         eu_life_expectancy_actual, eu_life_expectancy_expected
     )
+
+if __name__ == "__main__":
+    pytest.main([__file__])
