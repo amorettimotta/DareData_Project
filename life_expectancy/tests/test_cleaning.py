@@ -22,3 +22,4 @@ def test_clean_data(input_fixture, output_fixture):
 
 if __name__ == "__main__":
     pytest.main([__file__])
+    

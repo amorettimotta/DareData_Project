@@ -17,8 +17,9 @@ build-backend = "setuptools.build_meta"
 
 [tool.pylint."messages control"]
 disable = [
-   "missing-module-docstring", 'C0116'
+   "missing-module-docstring", 'C0115', 'C0116',
    # Add any other checks you want to disable here
+   "invalid-name", 'C0103',
 ]
 
 # This is also important. It tells setuptools which packages to include.

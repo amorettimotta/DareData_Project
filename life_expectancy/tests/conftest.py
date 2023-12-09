@@ -1,7 +1,7 @@
 # conftest.py
+from pathlib import Path
 import pandas as pd
 import pytest
-from pathlib import Path
 from life_expectancy.loading_saving import load_dataset
 #from . import FIXTURES_DIR
 

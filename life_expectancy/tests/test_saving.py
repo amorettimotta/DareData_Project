@@ -1,6 +1,6 @@
+from unittest.mock import patch
 import pandas as pd
 import pytest
-from unittest.mock import patch
 from life_expectancy.loading_saving import save_cleaned_data
 
 def test_save_cleaned_data():
@@ -14,7 +14,7 @@ def test_save_cleaned_data():
         # Chamar a função que está a ser testada
         save_cleaned_data(fake_df, "fake_path.csv", ',')
 
-        # Assert
+# Assert
         mock_to_csv.assert_called_once_with("fake_path.csv", index=False, sep=',')
 
         print("Teste 'save_cleaned_data' está OK!")

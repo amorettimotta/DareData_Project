@@ -1,6 +1,6 @@
 #sample file
-import pandas as pd
 from pathlib import Path
+import pandas as pd
 from life_expectancy.loading_saving import load_dataset, save_cleaned_data
 from life_expectancy.cleaning import clean_data
 
@@ -21,9 +21,10 @@ def load_and_sample_data() -> pd.DataFrame:
 def expected_result_function(sample_df) -> pd.DataFrame:
     """Fixture to generate the expected result based on the sample data."""
     expected_result = clean_data(sample_df)
-    
+
     #save_cleaned_data(expected_result, FIXTURES_DIR / "eu_life_expectancy_expected.csv")
-    save_cleaned_data(expected_result, Path(__file__).parent / "fixtures" / "eu_life_expectancy_expected.csv", ",")
+    save_cleaned_data(expected_result, Path(__file__).parent / "fixtures" /
+                      "eu_life_expectancy_expected.csv", ",")
 
     return expected_result
 
