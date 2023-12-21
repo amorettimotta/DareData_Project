@@ -1,61 +1,103 @@
+# cleaning
 import re
-from pathlib import Path
-import sys
-import argparse
+from enum import Enum
 import pandas as pd
 
-def load_dataset():
-    script_dir = Path(__file__).parent
-    data_path = script_dir / "data" / "eu_life_expectancy_raw.tsv"
-    df = pd.read_csv(data_path, sep='\t')
-    return df
 
-def clean_data(df, country_arg = 'PT'):
+class Region(Enum):
+    PT = 'PT'
+    BE = 'BE'
+    BG = 'BG'
+    AT = 'AT'
+    CH = 'CH'
+    CY = 'CY'
+    CZ = 'CZ'
+    DK = 'DK'
+    EE = 'EE'
+    EL = 'EL'
+    ES = 'ES'
+    EU = 'EU'
+    FI = 'FI'
+    FR = 'FR'
+    HR = 'HR'
+    HU = 'HU'
+    IS = 'IS'
+    IT = 'IT'
+    LI = 'LI'
+    LT = 'LT'
+    LU = 'LU'
+    LV = 'LV'
+    MT = 'MT'
+    NL = 'NL'
+    NO = 'NO'
+    PL = 'PL'
+    RO = 'RO'
+    SE = 'SE'
+    SI = 'SI'
+    SK = 'SK'
+    DE = 'DE'
+    AL = 'AL'
+    EA = 'EA'
+    EF = 'EF'
+    IE = 'IE'
+    ME = 'ME'
+    MK = 'MK'
+    RS = 'RS'
+    AM = 'AM'
+    AZ = 'AZ'
+    GE = 'GE'
+    TR = 'TR'
+    UA = 'UA'
+    BY = 'BY'
+    UK = 'UK'
+    XK = 'XK'
+    FX = 'FX'
+    MD = 'MD'
+    SM = 'SM'
+    RU = 'RU'
+    EA18 = 'EA18'
+    EA19 = 'EA19'
+    EFTA = 'EFTA'
+    EEA30_2007 = 'EEA30_2007'
+    EEA31 = 'EEA31'
+    EU27_2007 = 'EU27_2007'
+    EU28 = 'EU28'
 
-    df.columns.values[0] = 'unit,sex,age,geo_time'
+    @classmethod
+    def get_countries(cls):
+        return [reg.value for reg in cls if len(reg.value) == 2]
 
-    df[['unit', 'sex', 'age', 'geo_time']] = df['unit,sex,age,geo_time'].str.split(',', expand=True)
+def clean_data(original_df, country_arg=Region.PT) -> pd.DataFrame:
 
-    df.drop('unit,sex,age,geo_time', axis=1, inplace=True)
+    original_df.columns.values[0] = 'unit,sex,age,geo_time'
+    original_df[['unit', 'sex', 'age', 'geo_time']] = (
+        original_df['unit,sex,age,geo_time'].str.split(',', expand=True)
+    )
+    original_df.drop('unit,sex,age,geo_time', axis=1, inplace=True)
+    original_df = pd.melt(
+    original_df,
+        id_vars=['unit', 'sex', 'age', 'geo_time'], var_name='year', value_name='value')
+    original_df.columns.values[3] = 'region'
+    original_df['year'] = original_df['year'].astype('int64')
+    original_df['value'] = original_df['value'].astype(str)
+    original_df['value'] = original_df['value'].apply(clean)
+    original_df['value'] = original_df['value'].replace('', pd.NA)
+    original_df = original_df.dropna(subset=['value'])
+    original_df['value'] = original_df['value'].astype(float)
 
-    df = pd.melt(df, id_vars=['unit', 'sex', 'age', 'geo_time'],
-                 var_name='year', value_name='value')
+    print(f"Cleaned DataFrame:\n{original_df.head()}\n")
 
-    df.columns.values[3] = 'region'
+    df_clean = original_df[original_df['region'] == country_arg.value]
 
-    df['year'] = df['year'].astype(int)
+    return df_clean
 
-    df['value'] = df['value'].apply(clean)
-
-    df['value'] = df['value'].replace('', pd.NA)
-    df = df.dropna(subset=['value'])
-
-    df['region'] = df['region'].str.extract(r'([A-Z]{2})', expand=False)
-
-    df['value'] = df['value'].astype(float)
-    df = df[df['region'] == country_arg]
-
-    return df
-
-def save_data(dataframe):
-    script_dir = Path(__file__).parent
-    csv_path = script_dir / "data" / "pt_life_expectancy.csv"
-    dataframe.to_csv(csv_path, index=False)
-
-def clean (value):
+def clean(value):
     cleaned_value = re.sub(r'[^0-9.]', '', value)
     return cleaned_value
 
 if __name__ == "__main__": # pragma: no cover
-    parser = argparse.ArgumentParser(prog='cleaning.py', description="Script to clean a dataset")
-    parser.add_argument('--country', type=str, nargs='*', help= 'Country to filter the dataframe')
-    args = parser.parse_args()
+    region = Region
 
-    original_df = load_dataset()
-
-    if len(sys.argv) > 1:
-        df_cleaned = clean_data(original_df, args.country[0])
-    else:
-        df_cleaned = clean_data(original_df)
-
-    save_data(df_cleaned)
+    lst = list(Region)
+    print(region.get_countries())
+    
