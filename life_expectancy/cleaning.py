@@ -96,7 +96,7 @@ def clean(value):
     return cleaned_value
 
 if __name__ == "__main__": # pragma: no cover
-    region = Region
+    region = Region(Enum)
 
     lst = list(Region)
     print(region.get_countries())
