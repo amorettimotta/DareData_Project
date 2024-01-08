@@ -68,11 +68,14 @@ class Region(Enum):
         return [reg.value for reg in cls if len(reg.value) == 2]
 
 def clean_data(original_df, country_arg=Region.PT) -> pd.DataFrame:
+    if country_arg is None:
+        country_arg = Region.PT
 
     original_df.columns.values[0] = 'unit,sex,age,geo_time'
     original_df[['unit', 'sex', 'age', 'geo_time']] = (
         original_df['unit,sex,age,geo_time'].str.split(',', expand=True)
     )
+
     original_df.drop('unit,sex,age,geo_time', axis=1, inplace=True)
     original_df = pd.melt(
     original_df,
@@ -96,8 +99,7 @@ def clean(value):
     return cleaned_value
 
 if __name__ == "__main__": # pragma: no cover
-    region = Region(Enum)
 
-    lst = list(Region)
-    print(region.get_countries())
+    list_countries = Region.get_countries()
+    print(list_countries)
     
