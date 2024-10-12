@@ -18,6 +18,7 @@ build-backend = "setuptools.build_meta"
 [tool.pylint."messages control"]
 disable = [
    "missing-module-docstring", 'C0115', 'C0116',
+    'R0903',  # Disable the "Too few public methods" warning
    # Add any other checks you want to disable here
 ]
 
